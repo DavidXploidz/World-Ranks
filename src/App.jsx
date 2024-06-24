@@ -5,17 +5,60 @@ import Table from "./components/Table"
 export default function App() {
   
   const [countries, setCountries] = useState([])
+  const [defaultCountries, setDefaultCountries] = useState([])
   const [selectOption, setSelectedOption] = useState('population')
   const [sortOrder, setSortOrder] = useState('des');
+  const [filters, setFilters] = useState({
+      americas: false,
+      antarctic: false,
+      africa: false,
+      asia: false,
+      europe: false,
+      oceania: false,
+      independent: false,
+      member: false
+  });
 
   useEffect(() => {
     getData()
   }, [])
 
+  useEffect(() => {
+    const filteredCountries = defaultCountries.filter(item => {
+      if (filters.americas && item.region !== 'Americas') {
+        return false;
+      }
+      if (filters.antarctic && item.region !== 'Antarctic') {
+        return false;
+      }
+      if (filters.africa && item.region !== 'Africa') {
+        return false;
+      }
+      if (filters.asia && item.region !== 'Asia') {
+        return false;
+      }
+      if (filters.europe && item.region !== 'Europe') {
+        return false;
+      }
+      if (filters.oceania && item.region !== 'Oceania') {
+        return false;
+      }
+      if (filters.independent && !item.independent) {
+        return false;
+      }
+      if (filters.member && item.independent) {
+        return false;
+      }
+      return true;
+    });
+    setCountries(filteredCountries);
+}, [filters, defaultCountries]);
+
   const getData = async () => {
     const url = "https://restcountries.com/v3.1/all"
     const res = await fetch(url)
     const data = await res.json()
+    setDefaultCountries(data)
     setCountries(data)
   }
 
@@ -23,7 +66,6 @@ export default function App() {
   const num_countries = countries.length;
 
   function sortProducts(countries, selectOption, sortOrder){
-    console.log(countries);
     return [...countries].sort((a, b) => {
       const valueA = selectOption.split('.').reduce((acc, key) => acc[key], a);
       const valueB = selectOption.split('.').reduce((acc, key) => acc[key], b);
@@ -38,13 +80,10 @@ export default function App() {
 
   const sortedProducts = sortProducts(countries, selectOption, sortOrder);
 
-  function handleChangeRegion(event){
-    const checked = event.target.checked;
-    const id = event.target.id;
-    const filterRegions = countries.filter(item => item.region === id);
-    console.log(filterRegions);
-    setCountries(filterRegions)
-  }
+  const handleFilterChange = (e) => {
+    const { id, checked } = e.target;
+    setFilters({ ...filters, [id]: checked });
+  };
 
   return (
     <div className='container page page--out'>
@@ -66,34 +105,41 @@ export default function App() {
           <label htmlFor="region">Region</label>
           <section className="regions">
             <div className="regions__option">
-              <input type="checkbox" id="Americas" onChange={e => handleChangeRegion(e)} />
-              <label htmlFor="Americas">Americas</label>
+              <input type="checkbox" id="americas" checked={filters.americas} onChange={handleFilterChange} />
+              <label htmlFor="americas">Americas</label>
             </div>
             <div className="regions__option">
-              <input type="checkbox" id="Antarctic" onChange={e => handleChangeRegion(e)} />
-              <label htmlFor="Antarctic">Antarctic</label>
+              <input type="checkbox" id="antarctic" checked={filters.antarctic} onChange={handleFilterChange} />
+              <label htmlFor="antarctic">Antarctic</label>
             </div>
             <div className="regions__option">
-              <input type="checkbox" id="Africa" onChange={e => handleChangeRegion(e)} />
-              <label htmlFor="Africa">Africa</label>
+              <input type="checkbox" id="africa" checked={filters.africa} onChange={handleFilterChange} />
+              <label htmlFor="africa">Africa</label>
             </div>
             <div className="regions__option">
-              <input type="checkbox" id="Asia" onChange={e => handleChangeRegion(e)} />
-              <label htmlFor="Asia">Asia</label>
+              <input type="checkbox" id="asia" checked={filters.asia} onChange={handleFilterChange} />
+              <label htmlFor="asia">Asia</label>
             </div>
             <div className="regions__option">
-              <input type="checkbox" id="Europe" onChange={e => handleChangeRegion(e)} />
-              <label htmlFor="Europe">Europe</label>
+              <input type="checkbox" id="europe" checked={filters.europe} onChange={handleFilterChange} />
+              <label htmlFor="europe">Europe</label>
             </div>
             <div className="regions__option">
-              <input type="checkbox" id="Oceania" onChange={e => handleChangeRegion(e)} />
-              <label htmlFor="Oceania">Oceania</label>
+              <input type="checkbox" id="oceania" checked={filters.oceania} onChange={handleFilterChange} />
+              <label htmlFor="oceania">Oceania</label>
             </div>
           </section>
         </div>
         <div>
           <label htmlFor="status">Status</label>
-          ...
+          <div className="status">
+            <input type="checkbox" id="member" checked={filters.member} onChange={handleFilterChange}  />
+            <label htmlFor="member">Member of the United Nations</label>
+          </div>
+          <div className="status">
+            <input type="checkbox" id="independent" checked={filters.independent} onChange={handleFilterChange} />
+            <label htmlFor="independent">Independent</label>
+          </div>
         </div>
       </aside>
       <main className='page__main'>

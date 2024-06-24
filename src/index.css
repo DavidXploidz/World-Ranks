@@ -161,6 +161,13 @@ p{
   row-gap: 2rem;
   grid-area: aside;
 }
+@media (min-width: 1024px){ 
+  .page__aside{
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+}
 .page__aside :is(select){
   border: none;
   background-color: var(--black);
@@ -196,8 +203,6 @@ table{
   border-collapse: collapse;
 }
 table thead{
-  position: sticky;
-  top: 0;
   background-color: var(--black);
 }
 table thead th{
@@ -215,6 +220,12 @@ table td{
 table td :is(.flag){
   max-width: 50px;
   border-radius: var(--radius-xs);
+}
+@media (min-width: 1024px){ 
+  table thead{
+    position: sticky;
+    top: 0;
+  }
 }
 /* Regions styles */
 .regions{
@@ -242,4 +253,44 @@ table td :is(.flag){
 }
 .regions__option :is(label){
   padding-bottom: 0;
+}
+.status{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: .5rem;
+}
+.status :is(label){
+  color: var(--neutral);
+  padding-bottom:  0;
+  font-weight: 600;
+}
+.status input[type="checkbox"]{
+  position: relative;
+  width: 25px;
+  height: 25px;
+  background-color: var(--colorprimary);
+  border-radius: .25rem;
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid var(--colorsecondary);
+}
+.status input[type="checkbox"]:checked{
+  background-color: var(--coloraccent);
+}
+.status input[type="checkbox"]::before{
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 10px;
+  width: 5px;
+  height: 14px;
+  border: 2px solid transparent;
+  border-left: none;
+  border-top: none;
+  transform: rotate(45deg) scale(1);
+}
+.status input[type="checkbox"]:checked::before{
+  border-color: var(--neutral) ;
 }
