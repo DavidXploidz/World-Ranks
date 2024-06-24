@@ -9,15 +9,16 @@ export default function App() {
   const [selectOption, setSelectedOption] = useState('population')
   const [sortOrder, setSortOrder] = useState('des');
   const [filters, setFilters] = useState({
-      americas: false,
-      antarctic: false,
-      africa: false,
-      asia: false,
-      europe: false,
-      oceania: false,
-      independent: false,
-      member: false
-  });
+    americas: false,
+    antarctic: false,
+    africa: false,
+    asia: false,
+    europe: false,
+    oceania: false,
+    independent: false,
+    member: false
+  }); //Yo se que si las quito sigue funcionando solo las pongo para recordarlo mas grafico
+  const [typing, setTyping] = useState('')
 
   useEffect(() => {
     getData()
@@ -52,7 +53,15 @@ export default function App() {
       return true;
     });
     setCountries(filteredCountries);
-}, [filters, defaultCountries]);
+  }, [filters, defaultCountries]);
+
+  // Escuchar por cambios en typing
+  useEffect(() => {
+    // Es importante que la info en search como en este metodo este en minusculas para que coincida
+    const typingData = defaultCountries.filter((item) => item.name.common.toLowerCase().includes(typing) );
+    setCountries(typingData)
+  }, [typing])
+  
 
   const getData = async () => {
     const url = "https://restcountries.com/v3.1/all"
@@ -89,7 +98,7 @@ export default function App() {
     <div className='container page page--out'>
       <header className='page__header'>
         <span>Found {num_countries} countries</span>
-        <Search />
+        <Search setTyping={setTyping} />
       </header>
       <aside className='page__aside'>
         <div>
@@ -131,7 +140,7 @@ export default function App() {
           </section>
         </div>
         <div>
-          <label htmlFor="status">Status</label>
+          <label htmlFor="status">Status {typing}</label>
           <div className="status">
             <input type="checkbox" id="member" checked={filters.member} onChange={handleFilterChange}  />
             <label htmlFor="member">Member of the United Nations</label>

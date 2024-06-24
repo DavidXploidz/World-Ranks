@@ -1,6 +1,13 @@
 import React from 'react'
 
 export default function Table({ countries }) {
+
+    const styles = {
+        td_short : {
+            maxWidth: '250px',
+        }
+    }
+
   return (
     <table>
         <thead>
@@ -17,7 +24,7 @@ export default function Table({ countries }) {
                 return (
                 <tr key={index}>
                     <td><img className="flag" src={country.flags.svg} alt={`Flag of ${country.name.common}`} /></td>
-                    <td>{country.name.common}</td>
+                    <td style={styles.td_short}>{country.name.common}</td>
                     <td>{country.population.toLocaleString()}</td>
                     <td>{country.area.toLocaleString()}</td>
                     <td>{country.region}</td>
