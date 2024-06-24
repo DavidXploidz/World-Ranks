@@ -9,29 +9,31 @@ export default function Table({ countries }) {
     }
 
   return (
-    <table>
-        <thead>
-            <tr>
-                <th>Flag</th>
-                <th>Name</th>
-                <th>Population</th>
-                <th>Area(km2)</th>
-                <th>Region</th>
-            </tr>
-        </thead>
-        <tbody>
-            {countries.map((country, index) => {
-                return (
-                <tr key={index}>
-                    <td><img className="flag" src={country.flags.svg} alt={`Flag of ${country.name.common}`} /></td>
-                    <td style={styles.td_short}>{country.name.common}</td>
-                    <td>{country.population.toLocaleString()}</td>
-                    <td>{country.area.toLocaleString()}</td>
-                    <td>{country.region}</td>
+    <div className='table-container'>
+        <table>
+            <thead>
+                <tr>
+                    <th>Flag</th>
+                    <th className='sticky-left'>Name</th>
+                    <th>Population</th>
+                    <th>Area(km2)</th>
+                    <th>Region</th>
                 </tr>
-                )
-            })}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {countries.map((country, index) => {
+                    return (
+                    <tr key={index}>
+                        <td><img className="flag" src={country.flags.svg} alt={`Flag of ${country.name.common}`} /></td>
+                        <td className='sticky-left' style={styles.td_short}>{country.name.common}</td>
+                        <td>{country.population.toLocaleString()}</td>
+                        <td>{country.area.toLocaleString()}</td>
+                        <td>{country.region}</td>
+                    </tr>
+                    )
+                })}
+            </tbody>
+        </table>
+    </div>
   )
 }

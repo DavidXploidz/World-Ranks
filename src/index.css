@@ -198,6 +198,13 @@ p{
   color: var(--neutral);
 }
 /* Table styles */
+.table-container{
+  overflow-x: auto;
+}
+.sticky-left{
+  position: sticky;
+  left: 0;
+}
 table{
   width: 100%;
   border-collapse: collapse;
@@ -211,20 +218,29 @@ table thead th{
   border-bottom: 1px solid var(--colorsecondary);
   text-align: left;
   font-size: var(--step--1);
+  background-color: var(--black);
 }
 table td{
   padding-block: .725rem;
+  padding-inline: .225rem;
   color: var(--neutral);
   font-weight: 500;
+  background-color: var(--black);
 }
 table td :is(.flag){
   max-width: 50px;
   border-radius: var(--radius-xs);
 }
 @media (min-width: 1024px){ 
+  .table-container{
+    overflow-x: unset;
+  }
   table thead{
     position: sticky;
     top: 0;
+  }
+  .sticky-left{
+    position: static;
   }
 }
 /* Regions styles */
