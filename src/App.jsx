@@ -95,7 +95,7 @@ export default function App() {
   };
 
   return (
-    <div className='container page page--out'>
+    <div className='container page page--bg page--out'>
       <header className='page__header'>
         <span>Found {num_countries} countries</span>
         <Search setTyping={setTyping} />

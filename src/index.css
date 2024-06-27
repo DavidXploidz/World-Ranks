@@ -85,6 +85,9 @@ p{
   width: min(90%, 120rem);
   margin-inline: auto;
 }
+.container--sm{
+  width: min(90%, 40rem);
+}
 .grid{
   display: grid;
   gap: 1rem;
@@ -103,13 +106,15 @@ p{
   background-position: center center;
 }
 /* Pages styles */
-.page{
+.page--bg{
   border-radius: var(--radius);
   background-color: var(--black);
   min-height: 100dvh;
   box-shadow: var(--shadow);
   padding: min(3vw, 2rem);
   color: var(--colorsecondary);
+}
+.page{
   display: grid;
   align-items: flex-start;
   grid-template-columns: 1fr;
@@ -309,4 +314,56 @@ table td :is(.flag){
 }
 .status input[type="checkbox"]:checked::before{
   border-color: var(--neutral) ;
+}
+/* Country */
+.country{
+  display: grid;
+}
+.country__header{
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  color: var(--neutral);
+  margin-bottom: 2rem;
+}
+.country__header :is(figure, img){
+  margin-inline: auto;
+  border-radius: var(--radius);
+}
+.country__header :is(h2){
+  margin-bottom: 0;
+  margin-top: 2rem;
+}
+.country__stats{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  color: var(--neutral);
+}
+.country__stats :is(.bg){
+  padding: 1rem;
+  background-color: var(--colorprimary);
+  border-radius: var(--radius);
+}
+.country__stats :is(span){
+  font-weight: 600;
+}
+.country__info{
+  display: grid;
+  margin-top: 2rem;
+  list-style: none;
+}
+.country__info li{
+  display: flex;
+  justify-content: space-between;
+  padding-block: 2rem;
+  border-bottom: 1px solid var(--colorsecondary);
+}
+.country__info li:last-child{
+  border-bottom: 0;
+}
+.country__info li span{
+  color: var(--neutral);
 }

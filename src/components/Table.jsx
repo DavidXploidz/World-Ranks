@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Table({ countries }) {
 
@@ -16,7 +17,7 @@ export default function Table({ countries }) {
                     <th>Flag</th>
                     <th className='sticky-left'>Name</th>
                     <th>Population</th>
-                    <th>Area(km2)</th>
+                    <th>Area(km<sup>2</sup>)</th>
                     <th>Region</th>
                 </tr>
             </thead>
@@ -24,7 +25,11 @@ export default function Table({ countries }) {
                 {countries.map((country, index) => {
                     return (
                     <tr key={index}>
-                        <td><img className="flag" src={country.flags.svg} alt={`Flag of ${country.name.common}`} /></td>
+                        <td>
+                            <Link to={`/country/${country.name.common.toLowerCase()}`}>
+                                <img className="flag" src={country.flags.svg} alt={`Flag of ${country.name.common}`} />
+                            </Link>
+                        </td>
                         <td className='sticky-left' style={styles.td_short}>{country.name.common}</td>
                         <td>{country.population.toLocaleString()}</td>
                         <td>{country.area.toLocaleString()}</td>
